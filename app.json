@@ -10,8 +10,10 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.baothuc.app",
+      "buildNumber": "1",
       "infoPlist": {
         "NSAlarmKitUsageDescription": "Ứng dụng cần quyền báo thức để đánh thức bạn đúng giờ đã hẹn, kể cả khi máy đang để im lặng.",
+        "ITSAppUsesNonExemptEncryption": false,
         "UIBackgroundModes": [
           "audio"
         ]

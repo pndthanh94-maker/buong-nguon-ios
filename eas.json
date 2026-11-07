@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 27.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "ios": {
+        "autoIncrement": "buildNumber"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "DIEN_SAU_KHI_TAO_APP_TREN_APP_STORE_CONNECT",
+        "appleTeamId": "DIEN_SAU_KHI_DANG_KY_APPLE_DEVELOPER"
+      }
+    }
+  }
+}
