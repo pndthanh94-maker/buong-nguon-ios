@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self'; media-src 'self'; style-src 'self'; script-src 'self'"
+    />
+    <title>Buông</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <img class="hinh-nen" src="../assets/hinh-nen.jpg" alt="" />
+    <div class="mang"></div>
+
+    <main class="khung">
+      <header class="dau">
+        <h1 class="tieu-de">Buông</h1>
+        <p class="phu-de" id="phuDe">Mỗi 15 phút, đếm từ lúc bấm Bắt đầu</p>
+      </header>
+
+      <div class="day-dai"></div>
+
+      <section class="duoi">
+        <div class="giua">
+          <div class="dem" id="dem">--:--</div>
+          <div class="dem-phu" id="demPhu">chưa chạy</div>
+        </div>
+
+        <div class="chip" id="chip"></div>
+
+        <button class="nut nut-bat" id="nut">Bắt đầu</button>
+
+        <button class="nghe-thu" id="ngheThu">Nghe thử tiếng chuông</button>
+      </section>
+    </main>
+
+    <audio id="chuong" src="../assets/tieng_chuong.mp3" preload="auto"></audio>
+    <script src="app.js"></script>
+  </body>
+</html>

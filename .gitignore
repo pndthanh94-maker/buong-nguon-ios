@@ -1,0 +1,65 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# generated native folders
+/ios
+/android
+
+# ---- Thêm cho kho chung hai app con ----
+
+# Thư viện và thư mục native sinh tự động của app-chuong
+app-chuong/node_modules/
+app-chuong/android/
+app-chuong/ios/
+app-chuong/.expo/
+
+# Electron: node_modules chứa binary 250MB, dist là file cài đã đóng gói
+app-windows/node_modules/
+app-windows/dist/
+
+# File cài đã build. GitHub chặn file trên 100MB, mà bản .exe nặng 120MB.
+# Chỗ đúng của chúng là mục Releases, không phải trong repo.
+*.apk
+*.exe
+ban-cu-v1.0/
+
+# Log build
+build-log.txt
+
+# Bản sao kho git cũ của app-chuong, giữ lại phòng khi cần
+app-chuong/.git-template-cu/

@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "Báo Thức",
+    "slug": "app-bao-thuc",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "baothuc",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.baothuc.app",
+      "infoPlist": {
+        "NSAlarmKitUsageDescription": "Ứng dụng cần quyền báo thức để đánh thức bạn đúng giờ đã hẹn, kể cả khi máy đang để im lặng.",
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.baothuc.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B0B0F",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-audio",
+      [
+        "expo-notifications",
+        {
+          "sounds": [
+            "./assets/sounds/chuong-co-dien.wav",
+            "./assets/sounds/binh-minh.wav",
+            "./assets/sounds/tieng-chuong.wav"
+          ]
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "16.4"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

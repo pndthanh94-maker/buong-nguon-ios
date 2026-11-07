@@ -1,0 +1,48 @@
+# Build file .apk cài thẳng vào máy Android.
+# Chạy trên runner Linux nên nhanh và rẻ hơn hẳn build iOS.
+# Chạy tay: tab Actions trên GitHub → build-apk → Run workflow.
+name: build-apk
+
+on:
+  workflow_dispatch:
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Cài gói
+        run: npm ci
+
+      - name: Sinh thư mục android/
+        # android/ không nằm trong git (Continuous Native Generation),
+        # prebuild dựng lại từ app.json và các config plugin.
+        run: npx expo prebuild --platform android --clean
+
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Đặt lại tên file
+        run: cp android/app/build/outputs/apk/release/app-release.apk Buong.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Buong-apk
+          path: Buong.apk
+          retention-days: 30

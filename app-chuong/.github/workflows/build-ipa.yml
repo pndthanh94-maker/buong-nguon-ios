@@ -1,0 +1,64 @@
+# Build file .ipa KHÔNG KÝ cho iOS 15.1 trở lên, cài bằng TrollStore hoặc Sideloadly.
+# Không cần máy Mac, không cần tài khoản Apple Developer.
+# Chạy tay: tab Actions trên GitHub → build-ipa → Run workflow.
+name: build-ipa
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Xcode đang dùng
+        run: xcodebuild -version
+
+      - name: Cài gói
+        run: npm ci
+
+      - name: Sinh thư mục ios/
+        # ios/ không nằm trong git (Continuous Native Generation),
+        # prebuild dựng lại từ app.json và các config plugin.
+        run: npx expo prebuild --platform ios --clean
+
+      - name: Cài CocoaPods
+        run: npx pod-install
+
+      - name: Build không ký
+        run: |
+          set -o pipefail
+          WS=$(ls -d ios/*.xcworkspace | head -1)
+          SCHEME=$(basename "$WS" .xcworkspace)
+          echo "workspace = $WS"
+          echo "scheme    = $SCHEME"
+          xcodebuild \
+            -workspace "$WS" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Đóng gói .ipa
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/*.app Payload/
+          zip -qry Buong-unsigned.ipa Payload
+          ls -lh Buong-unsigned.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Buong-ipa
+          path: Buong-unsigned.ipa
+          retention-days: 30

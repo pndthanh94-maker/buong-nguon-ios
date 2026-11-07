@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Buông",
+    "slug": "buong",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.buong.app",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.buong.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#FAFBF6",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-audio",
+      [
+        "expo-notifications",
+        {
+          "sounds": [
+            "./assets/tieng_chuong.wav",
+            "./assets/tieng_chuong_dai.wav"
+          ]
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.1"
+          }
+        }
+      ],
+      "expo-asset"
+    ]
+  }
+}

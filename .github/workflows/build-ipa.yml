@@ -1,0 +1,79 @@
+# Build file .ipa KHÔNG KÝ, để cài bằng Sideloadly (hoặc TrollStore nếu máy ở iOS 16.4–16.6.1).
+# Không cần máy Mac, không cần tài khoản Apple Developer.
+# Chạy tay: tab Actions trên GitHub → build-ipa → Run workflow.
+name: build-ipa
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Xcode đang dùng
+        run: |
+          xcodebuild -version
+          xcodebuild -showsdks | grep -i ios || true
+
+      - name: Cài gói
+        run: npm ci
+
+      - name: Sinh thư mục ios/
+        # Thư mục ios/ không nằm trong git (Continuous Native Generation),
+        # prebuild dựng lại từ app.json và các config plugin.
+        run: npx expo prebuild --platform ios --clean
+
+      - name: Cài CocoaPods
+        run: npx pod-install
+
+      - name: Build không ký
+        # Log ghi ra build.log để bước dưới tải về được khi build gãy.
+        # pipefail giữ mã lỗi thật của xcodebuild, không bị tee ăn mất.
+        run: |
+          set -o pipefail
+          WS=$(ls -d ios/*.xcworkspace | head -1)
+          SCHEME=$(basename "$WS" .xcworkspace)
+          echo "workspace = $WS"
+          echo "scheme    = $SCHEME"
+          xcodebuild \
+            -workspace "$WS" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            2>&1 | tee build.log
+
+      - name: Đóng gói .ipa
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/*.app Payload/
+          zip -qry BaoThuc-unsigned.ipa Payload
+          ls -lh BaoThuc-unsigned.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BaoThuc-ipa
+          path: BaoThuc-unsigned.ipa
+          retention-days: 30
+
+      # Build gãy thì log là thứ duy nhất nói được gãy ở đâu.
+      - name: Tải log khi build gãy
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          retention-days: 30
+          if-no-files-found: warn

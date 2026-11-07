@@ -1,0 +1,161 @@
+:root {
+  --chu: #ffffff;
+  --chu-mo: #9a9aa0;
+  --nhan: #ff375f;
+  --xanh: #30d158;
+  --the-sang: rgba(60, 60, 67, 0.6);
+  --mang: rgba(0, 0, 0, 0.68);
+  --dem-le: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  color: var(--chu);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  user-select: none;
+  cursor: default;
+}
+
+/* Hình nền phủ kín, cắt theo kiểu cover để không méo khi đổi cỡ cửa sổ. */
+.hinh-nen,
+.mang {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hinh-nen {
+  object-fit: cover;
+}
+
+/* Màng tối bắt buộc: hình nền sáng, không phủ thì chữ trắng đọc không ra. */
+.mang {
+  background: var(--mang);
+}
+
+.khung {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100vh;
+  padding: var(--dem-le);
+}
+
+.dau {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tieu-de {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.phu-de {
+  font-size: 14px;
+  color: var(--chu-mo);
+}
+
+/* Chừa trống nửa trên cho hình nền. */
+.day-dai {
+  flex: 1;
+}
+
+.duoi {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 4px;
+}
+
+.giua {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.dem {
+  font-size: 64px;
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.dem-phu {
+  font-size: 14px;
+  color: var(--chu-mo);
+}
+
+.chip {
+  display: flex;
+  gap: 8px;
+}
+
+.chip button {
+  flex: 1;
+  padding: 12px 0;
+  border: 0;
+  border-radius: 10px;
+  background: var(--the-sang);
+  color: var(--chu-mo);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip button:hover {
+  background: rgba(90, 90, 97, 0.7);
+}
+
+.chip button.chon {
+  background: var(--nhan);
+  color: var(--chu);
+}
+
+.nut {
+  padding: 18px 0;
+  border: 0;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nut-bat {
+  background: var(--xanh);
+  color: #000;
+}
+
+.nut-dung {
+  background: rgba(28, 28, 30, 0.74);
+  color: var(--chu);
+}
+
+.nghe-thu {
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--chu-mo);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.nghe-thu:hover {
+  color: var(--chu);
+}

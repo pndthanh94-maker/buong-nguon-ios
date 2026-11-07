@@ -1,0 +1,40 @@
+{
+  "name": "buong",
+  "version": "1.2.0",
+  "description": "Chuông định kỳ — nhắc buông mỗi 1/5/10/15/20/30 phút",
+  "main": "main.js",
+  "author": "Buông",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.buong.desktop",
+    "productName": "Buông",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "renderer/**/*",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Buông"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.2.1",
+    "electron-builder": "^26.18.0"
+  }
+}
